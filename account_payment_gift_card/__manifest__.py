@@ -4,7 +4,7 @@
 
 {
     "name": "account_payment_gift_card",
-    "summary": "Account Payment gift card",
+    "summary": "Account Payment gift card (obsolete)",
     "version": "14.0.1.0.0",
     "category": "Accounting/Payment Acquirers",
     "website": "https://github.com/OCA/account-payment",
@@ -18,6 +18,5 @@
         "payment",
     ],
     "data": [
-        "data/data.xml",
     ],
 }
