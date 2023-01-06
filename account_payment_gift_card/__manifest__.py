@@ -18,5 +18,6 @@
         "payment",
     ],
     "data": [
+        "data/data.xml",
     ],
 }
