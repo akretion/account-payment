@@ -19,5 +19,6 @@
     ],
     "data": [
         "data/data.xml",
+        "views/payment_transaction.xml",
     ],
 }
