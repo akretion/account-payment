@@ -120,7 +120,7 @@ class PaymentTransaction(models.Model):
         )
         return rendering_values
 
-    def _get_payment_request_data(self):
+    def _get_ogone_payment_request_data(self):
         if self.env.context.get(
             "active_model"
         ) == "account.move" and self.env.context.get("active_id"):
@@ -148,7 +148,7 @@ class PaymentTransaction(models.Model):
             "ALIASPERSISTEDAFTERUSE": "Y",
             "ECI": 9,  # Recurring (from eCommerce)
         }
-        return self._get_item_request_data(data, invoice)
+        return self._get_ogone_item_request_data(data, invoice)
 
     def _send_payment_request(self):
         """Override of payment to send a payment request to Ogone.
@@ -158,15 +158,18 @@ class PaymentTransaction(models.Model):
         :return: None
         :raise: UserError if the transaction is not linked to a token
         """
-        super()._send_payment_request()
-        if self.provider_code != "ogone":
-            return
+        tx = super()._send_payment_request()
+        if (
+            self.env.context.get("active_model", False) != "account.move"
+            or self.provider_id.code != "ogone"
+        ):
+            return tx
 
         if not self.token_id:
             raise UserError(_("Ogone: The transaction is not linked to a token."))
 
         # Make the payment request
-        data = self._get_payment_request_data()
+        data = self._get_ogone_payment_request_data()
         data["SHASIGN"] = self.provider_id._ogone_generate_signature(
             data, incoming=False
         )
@@ -199,7 +202,7 @@ class PaymentTransaction(models.Model):
         )
         self._handle_notification_data("ogone", feedback_data)
 
-    def _get_refund_request_data(self, invoice, refund_move):
+    def _get_ogone_refund_request_data(self, invoice, refund_move):
         data = {
             # DirectLink parameters
             "PSPID": self.provider_id.ogone_pspid,
@@ -223,7 +226,7 @@ class PaymentTransaction(models.Model):
             "ALIAS": self.token_id.provider_ref,
             "ALIASPERSISTEDAFTERUSE": "Y",
         }
-        return self._get_item_request_data(data, invoice)
+        return self._get_ogone_item_request_data(data, invoice)
 
     def _send_refund_request(self, amount_to_refund=None):
         """Override of payment to send a refund request to Ogone.
@@ -234,6 +237,12 @@ class PaymentTransaction(models.Model):
         :return: The refund transaction created to process the refund request.
         :rtype: recordset of `payment.transaction`
         """
+        self = self.with_context(refund=True)
+        provider_is_ogone = self._check_provider_is_ogone()
+        refund_tx = super()._send_refund_request(amount_to_refund=amount_to_refund)
+        if not provider_is_ogone or len(self.payment_id.reconciled_invoice_ids) != 1:
+            return refund_tx
+
         if self.payment_id.state != "posted":
             raise ValidationError(_("Only accounted payment can be refunded."))
 
@@ -249,19 +258,16 @@ class PaymentTransaction(models.Model):
         )
         refund_move.action_post()
         self = self.with_context(refund_move_id=refund_move.id)
-        refund_tx = super()._send_refund_request(amount_to_refund=amount_to_refund)
-        if (
-            self.provider_code != "ogone"
-            or len(self.payment_id.reconciled_invoice_ids) != 1
-        ):
-            return refund_tx
+        refund_tx.reference = refund_move.name
 
         if not self.token_id:
             raise UserError(_("Ogone: The transaction is not linked to a token."))
 
         # Make the refund request to ogone.
         invoice = self.payment_id.reconciled_invoice_ids[0]
-        data = self._get_refund_request_data(invoice=invoice, refund_move=refund_move)
+        data = self._get_ogone_refund_request_data(
+            invoice=invoice, refund_move=refund_move
+        )
         data["SHASIGN"] = self.provider_id._ogone_generate_signature(
             data, incoming=False
         )
@@ -296,7 +302,13 @@ class PaymentTransaction(models.Model):
 
         return refund_tx
 
-    def _get_item_request_data(self, data, invoice):
+    def _check_provider_is_ogone(self):
+        provider_is_ogone = True
+        if self.provider_id.code != "ogone":
+            provider_is_ogone = False
+        return provider_is_ogone
+
+    def _get_ogone_item_request_data(self, data, invoice):
         idx = 1
         for line in invoice.invoice_line_ids.filtered(lambda line: line.product_id):
             if line.tax_ids:
@@ -335,7 +347,7 @@ class PaymentTransaction(models.Model):
         tx = super()._get_tx_from_notification_data(
             provider_code=provider_code, notification_data=notification_data
         )
-        if provider_code != "ogone" or len(tx) == 1:
+        if self.provider_id.code != "ogone" or len(tx) == 1:
             return tx
 
         reference = notification_data.get("ORDERID")
@@ -363,9 +375,9 @@ class PaymentTransaction(models.Model):
         :param dict notification_data: The notification data sent by the provider
         :return: None
         """
-        super()._process_notification_data(notification_data)
-        if self.provider_code != "ogone":
-            return
+        res = super()._process_notification_data(notification_data)
+        if self.provider_id.code != "ogone":
+            return res
 
         if "tree" in notification_data:
             notification_data = notification_data["tree"]
@@ -442,7 +454,7 @@ class PaymentTransaction(models.Model):
 
     def _create_payment(self, **extra_create_values):
         payment = super()._create_payment(**extra_create_values)
-        if self.provider_code == "ogone" and self.amount < 0:
+        if self.provider_id.code == "ogone" and self.amount < 0:
             payment_method_line = (
                 self.provider_id.journal_id.outbound_payment_method_line_ids.filtered(
                     lambda l: l.code == self.provider_code

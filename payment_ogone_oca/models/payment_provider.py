@@ -1,6 +1,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import logging
+import re
 from hashlib import new as hashnew
 
 import requests
@@ -135,7 +136,15 @@ class PaymentProvider(models.Model):
             ]
         else:
             formatted_items = [(k.upper(), v) for k, v in values.items()]
-        sorted_items = sorted(formatted_items)
+        # We want to sort taking into account the order of the numeric indexes
+        # but which are in text format e.g. '10' must come after '9' and not after '1'.
+        sorted_items = sorted(
+            formatted_items,
+            key=lambda s: [
+                int(text) if text.isdigit() else text.upper()
+                for text in re.split("([0-9]+)", s[0])
+            ],
+        )
         signing_string = "".join(
             f"{k}={v}{key}" for k, v in sorted_items if _filter_key(k) and v
         )
