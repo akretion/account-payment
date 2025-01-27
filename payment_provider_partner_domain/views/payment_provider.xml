@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright (C) 2025 Akretion Benoit GUILLOT <benoit.guillot@akretion.com>
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="payment_provider_form" model="ir.ui.view">
+        <field name="name">payment.provider.form</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form" />
+        <field name="arch" type="xml">
+            <xpath expr='//field[@name="available_country_ids"]' position='after'>
+                <field
+                    name="partner_filter_domain"
+                    widget="domain"
+                    invisible="not partner_filter_id"
+                    options="{'model': 'res.partner'}"
+                />
+                <div class="oe_edit_only oe_inline">
+                    Set selection based on a search filter:
+
+                    <field
+                        name="partner_filter_id"
+                        domain="[('model_id', '=', 'res.partner')]"
+                        class="oe_inline"
+                        context="{'default_model_id': 'res.partner', 'default_active': False, 'active_test': False}"
+                        can_create="true"
+                        can_write="true"
+                    />
+                </div>
+           </xpath>
+        </field>
+    </record>
+</odoo>
