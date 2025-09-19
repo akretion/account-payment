@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+
+    <record id="payment_provider_paya" model="payment.provider">
+        <field name="name">PAYA</field>
+        <field name="display_as">Credit Card (powered by PAYA)</field>
+        <field
+            name="image_128"
+            type="base64"
+            file="payment_paya/static/description/icon.png"
+        />
+        <field name="module_id" ref="base.module_payment_paya" />
+        <field
+            name="payment_icon_ids"
+            eval="[(6, 0, [
+                   ref('payment.payment_icon_cc_american_express'),
+               ])]"
+        />
+        <field name="code">paya</field>
+        <field name="allow_tokenization">False</field>
+    </record>
+
+</odoo>

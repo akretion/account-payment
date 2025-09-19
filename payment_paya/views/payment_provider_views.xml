@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="payment_provider_form" model="ir.ui.view">
+        <field name="name">PAYA Provider Form</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form" />
+        <field name="arch" type="xml">
+            <group name="provider_credentials" position="inside">
+                <group attrs="{'invisible': [('code', '!=', 'paya')]}">
+                    <field
+                        name="paya_userid"
+                        attrs="{'required':[('code', '=', 'paya'), ('state', '!=', 'disabled')]}"
+                    />
+                    <field
+                        name="paya_password"
+                        attrs="{'required':[('code', '=', 'paya'), ('state', '!=', 'disabled')]}"
+                        password="True"
+                    />
+                    <field
+                        name="paya_api_url"
+                        attrs="{'required':[('code', '=', 'paya'), ('state', '!=', 'disabled')]}"
+                    />
+                </group>
+            </group>
+        </field>
+    </record>
+
+</odoo>

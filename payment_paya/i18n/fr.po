@@ -1,0 +1,146 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* payment_paya
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-03 15:25+0000\n"
+"PO-Revision-Date: 2025-10-03 15:25+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: payment_paya
+#: model:ir.model.fields,field_description:payment_paya.field_payment_provider__paya_userid
+msgid "API User ID"
+msgstr "Identifiant Utilisateur de l'API"
+
+#. module: payment_paya
+#: model:ir.model.fields,field_description:payment_paya.field_payment_provider__paya_password
+msgid "API User Password"
+msgstr "Mot de passe Utilisateur de l'API"
+
+#. module: payment_paya
+#: model:ir.model.fields,field_description:payment_paya.field_payment_provider__code
+msgid "Code"
+msgstr "Code"
+
+#. module: payment_paya
+#: model:payment.provider,display_as:payment_paya.payment_provider_paya
+msgid "Credit Card (powered by PAYA)"
+msgstr "Carte de crédit (fournie par PAYA)"
+
+#. module: payment_paya
+#. odoo-python
+#: code:addons/payment_paya/models/payment_transaction.py:0
+#, python-format
+msgid "Only accounted payment can be refunded."
+msgstr "Seul un paiement comptabilisé peut être remboursé."
+
+#. module: payment_paya
+#: model:ir.model.fields.selection,name:payment_paya.selection__payment_provider__code__paya
+#: model:payment.provider,name:payment_paya.payment_provider_paya
+msgid "PAYA"
+msgstr "PAYA"
+
+#. module: payment_paya
+#. odoo-python
+#: code:addons/payment_paya/models/payment_provider.py:0
+#, python-format
+msgid "PAYA: Could not establish the connection to the API."
+msgstr "PAYA : Impossible d'établir la connexion à l'API."
+
+#. module: payment_paya
+#. odoo-python
+#: code:addons/payment_paya/models/payment_transaction.py:0
+#, python-format
+msgid "PAYA: No transaction found matching reference %s."
+msgstr "PAYA : Aucune transaction trouvée correspondant à la référence %s."
+
+#. module: payment_paya
+#. odoo-python
+#: code:addons/payment_paya/models/payment_provider.py:0
+#, python-format
+msgid "PAYA: The communication with the API failed."
+msgstr "PAYA : La communication avec l'API a échoué."
+
+#. module: payment_paya
+#. odoo-python
+#: code:addons/payment_paya/models/payment_transaction.py:0
+#: code:addons/payment_paya/models/payment_transaction.py:0
+#, python-format
+msgid "PAYA: The transaction is not linked to a token."
+msgstr "PAYA : La transaction n'est pas liée à un jeton de paiement."
+
+#. module: payment_paya
+#: model:ir.model,name:payment_paya.model_payment_provider
+msgid "Payment Provider"
+msgstr "Fournisseur de paiement"
+
+#. module: payment_paya
+#: model:ir.model,name:payment_paya.model_payment_transaction
+msgid "Payment Transaction"
+msgstr "Transaction"
+
+#. module: payment_paya
+#. odoo-python
+#: code:addons/payment_paya/models/payment_transaction.py:0
+#, python-format
+msgid "Reversal of: %s"
+msgstr "Extourne de: %s"
+
+#. module: payment_paya
+#. odoo-python
+#: code:addons/payment_paya/models/payment_transaction.py:0
+#, python-format
+msgid "Storing your payment details is necessary for future use."
+msgstr ""
+"L'enregistrement de vos données de paiement est nécessaire pour une "
+"utilisation ultérieure."
+
+#. module: payment_paya
+#: model:ir.model.fields,help:payment_paya.field_payment_provider__paya_userid
+msgid "The ID solely used to identify the API user with PAYA"
+msgstr "L'ID utilisé uniquement pour identifier l'utilisateur de l'API avec PAYA"
+
+#. module: payment_paya
+#. odoo-python
+#: code:addons/payment_paya/models/payment_transaction.py:0
+#, python-format
+msgid ""
+"The payment has been declined. Settlement Result Code: "
+"%(settlement_result_code)s - Description: %(reason)s"
+msgstr ""
+"Le paiement a été refusé. Code Réponse du paiement: "
+"%(settlement_result_code)s - Description : %(reason)s"
+
+#. module: payment_paya
+#: model:ir.model.fields,help:payment_paya.field_payment_provider__code
+msgid "The technical code of this payment provider."
+msgstr "Le code technique de ce fournisseur de paiement."
+
+#. module: payment_paya
+#: model_terms:payment.provider,cancel_msg:payment_paya.payment_provider_paya
+msgid "Votre paiement a été annulé."
+msgstr ""
+
+#. module: payment_paya
+#: model_terms:payment.provider,auth_msg:payment_paya.payment_provider_paya
+msgid "Votre paiement a été autorisé."
+msgstr ""
+
+#. module: payment_paya
+#: model_terms:payment.provider,pending_msg:payment_paya.payment_provider_paya
+msgid ""
+"Votre paiement a été traité avec succès mais est en attente d'approbation."
+msgstr ""
+
+#. module: payment_paya
+#: model_terms:payment.provider,done_msg:payment_paya.payment_provider_paya
+msgid "Votre paiement a été traité avec succès. Merci !"
+msgstr ""
