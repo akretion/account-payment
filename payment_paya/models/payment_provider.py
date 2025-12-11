@@ -32,7 +32,6 @@ class PaymentProvider(models.Model):
     paya_api_url = fields.Char(
         string="API Url",
         required_if_provider="paya",
-        default="https://itspgw.its-connect.net/request.aspx",
     )
 
     # === COMPUTE METHODS ===#
@@ -93,6 +92,7 @@ class PaymentProvider(models.Model):
         try:
             response = self._paya_request(url, payload, timeout=60)
             response.raise_for_status()
+            _logger.info("send request to PAYA with api url '%s'", url)
         except requests.exceptions.ConnectionError as e:
             _logger.exception("unable to reach endpoint at %s", url)
             raise ValidationError(
