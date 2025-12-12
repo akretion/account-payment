@@ -88,7 +88,7 @@ class PaymentProvider(models.Model):
         """
         self.ensure_one()
 
-        url = self._paya_get_api_url("hosted_payment_page")
+        url = self.paya_api_url
         try:
             response = self._paya_request(url, payload, timeout=60)
             response.raise_for_status()

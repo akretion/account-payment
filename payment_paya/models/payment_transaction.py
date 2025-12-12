@@ -97,7 +97,7 @@ class PaymentTransaction(models.Model):
             )
         rendering_values.update(
             {
-                "api_url": self.provider_id._paya_get_api_url("hosted_payment_page"),
+                "api_url": self.provider_id.paya_api_url,
             }
         )
         return rendering_values

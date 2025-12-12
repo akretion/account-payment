@@ -99,7 +99,7 @@ class PAYATest(PAYACommon, PaymentHttpCommon):
 
         self.assertEqual(
             form_info["action"],
-            "https://itspgw.its-connect.net/request.aspx",
+            self.paya.paya_api_url,
         )
         inputs = form_info["inputs"]
         self.assertEqual(len(expected_values), len(inputs))
