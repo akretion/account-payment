@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2026 Akretion (https://www.akretion.com).
+  @author Benoît Guillot <benoit.guillot@akretion.com>
+  License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_partner_form_payment_validation" model="ir.ui.view">
+        <field name="name">res.partner.form.payment.validation</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='accounting']" position="inside">
+                <group string="Payment Approval" name="payment_validation">
+                    <group>
+                        <field name="payment_validation_level1_user_id" />
+                        <field name="payment_validation_level2_user_id" />
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

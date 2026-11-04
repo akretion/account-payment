@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2026 Akretion (https://www.akretion.com).
+  @author Benoît Guillot <benoit.guillot@akretion.com>
+  License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_move_form_payment_validation" model="ir.ui.view">
+        <field name="name">account.move.form.payment.validation</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header/field[@name='state']" position="before">
+                <button
+                    name="action_payment_validation_validate_level1"
+                    type="object"
+                    string="Approve Payment (Level 1)"
+                    class="btn-primary"
+                    groups="account_payment_validation.group_payment_validation_level1"
+                    invisible="payment_validation_step != 'to_validate_level1'"
+                />
+                <button
+                    name="action_payment_validation_validate_level2"
+                    type="object"
+                    string="Approve Payment (Level 2)"
+                    class="btn-primary"
+                    groups="account_payment_validation.group_payment_validation_level2"
+                    invisible="payment_validation_step != 'to_validate_level2'"
+                />
+                <button
+                    name="action_payment_validation_resend"
+                    type="object"
+                    string="Re-send Approval Request"
+                    invisible="payment_validation_step not in ('to_validate_level1', 'to_validate_level2')"
+                />
+            </xpath>
+            <xpath expr="//page[@name='other_info'][1]" position="inside">
+                <group
+                    string="Payment Approval"
+                    name="payment_validation"
+                    invisible="move_type != 'in_invoice'"
+                >
+                    <field
+                        name="payment_validation_level1_user_id"
+                        readonly="state != 'draft'"
+                    />
+                    <field
+                        name="payment_validation_level2_user_id"
+                        readonly="state != 'draft'"
+                    />
+                    <field name="payment_validation_step" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_invoice_tree_payment_validation" model="ir.ui.view">
+        <field name="name">account.invoice.list.payment.validation</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <field name="status_in_payment" position="after">
+                <field
+                    name="payment_validation_step"
+                    widget="badge"
+                    optional="show"
+                    decoration-warning="payment_validation_step in ('to_validate_level1', 'to_validate_level2')"
+                    decoration-success="payment_validation_step == 'validated'"
+                />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_move_tree_payment_validation" model="ir.ui.view">
+        <field name="name">account.move.list.payment.validation</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_tree" />
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field
+                    name="payment_validation_step"
+                    widget="badge"
+                    optional="show"
+                    decoration-warning="payment_validation_step in ('to_validate_level1', 'to_validate_level2')"
+                    decoration-success="payment_validation_step == 'validated'"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

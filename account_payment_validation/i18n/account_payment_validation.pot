@@ -1,0 +1,350 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_payment_validation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-12 20:14+0000\n"
+"PO-Revision-Date: 2026-11-12 20:14+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_payment_validation
+#. odoo-python
+#: code:addons/account_payment_validation/models/account_move.py:0
+msgid ""
+"%(user)s is not a user of the group of the %(group)s. Please select another "
+"user."
+msgstr ""
+
+#. module: account_payment_validation
+#. odoo-python
+#: code:addons/account_payment_validation/models/account_move.py:0
+msgid ""
+"%s is not waiting for the approval of its payment by a level 1 approver."
+msgstr ""
+
+#. module: account_payment_validation
+#. odoo-python
+#: code:addons/account_payment_validation/models/account_move.py:0
+msgid ""
+"%s is not waiting for the approval of its payment by a level 2 approver."
+msgstr ""
+
+#. module: account_payment_validation
+#: model:mail.template,body_html:account_payment_validation.payment_validation_level1_mail_template
+msgid ""
+"<div style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                <p>Hello <t t-out=\"object.payment_validation_level1_user_id.name\"/>,</p>\n"
+"                <p>The vendor bill <b t-out=\"object.name\"/> (<t t-out=\"object.partner_id.display_name\"/>) is waiting for your approval to be paid.</p>\n"
+"\n"
+"                <table style=\"border-spacing: 0; border-collapse: collapse; width: 100%; text-align: center; margin-bottom: 16px;\">\n"
+"                    <tr>\n"
+"                        <th style=\"padding: 5px; border: 1px solid black;\">Bill Date</th>\n"
+"                        <th style=\"padding: 5px; border: 1px solid black;\">Due Date</th>\n"
+"                        <th style=\"padding: 5px; border: 1px solid black;\">Total</th>\n"
+"                        <th style=\"padding: 5px; border: 1px solid black;\">Reference</th>\n"
+"                    </tr>\n"
+"                    <tr>\n"
+"                        <td style=\"padding: 5px; border: 1px solid black;\">\n"
+"                            <t t-out=\"object.invoice_date or ''\"/>\n"
+"                        </td>\n"
+"                        <td style=\"padding: 5px; border: 1px solid black;\">\n"
+"                            <t t-out=\"object.invoice_date_due or ''\"/>\n"
+"                        </td>\n"
+"                        <td style=\"padding: 5px; border: 1px solid black;\">\n"
+"                            <t t-out=\"object.amount_total or ''\"/>\n"
+"                            <t t-out=\"object.currency_id.name or ''\"/>\n"
+"                        </td>\n"
+"                        <td style=\"padding: 5px; border: 1px solid black;\">\n"
+"                            <t t-out=\"object.ref or ''\"/>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </table>\n"
+"\n"
+"                <p>\n"
+"                    <a t-attf-href=\"/odoo/action-account.action_move_in_invoice_type/{{object.id}}\" style=\"background-color:#875A7B; padding:8px 16px; text-decoration:none; color:#fff; border-radius:5px;\">Open the vendor bill</a>\n"
+"                </p>\n"
+"\n"
+"                <p>Regards,</p>\n"
+"                <t t-if=\"user.signature\">\n"
+"                    <p>\n"
+"                        <t t-out=\"user.signature or ''\"/>\n"
+"                    </p>\n"
+"                </t>\n"
+"            </div>\n"
+"        "
+msgstr ""
+
+#. module: account_payment_validation
+#: model:mail.template,body_html:account_payment_validation.payment_validation_level2_mail_template
+msgid ""
+"<div style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                <p>Hello <t t-out=\"object.payment_validation_level2_user_id.name\"/>,</p>\n"
+"                <p>The vendor bill <b t-out=\"object.name\"/> (<t t-out=\"object.partner_id.display_name\"/>) is waiting for your approval to be paid.</p>\n"
+"\n"
+"                <table style=\"border-spacing: 0; border-collapse: collapse; width: 100%; text-align: center; margin-bottom: 16px;\">\n"
+"                    <tr>\n"
+"                        <th style=\"padding: 5px; border: 1px solid black;\">Bill Date</th>\n"
+"                        <th style=\"padding: 5px; border: 1px solid black;\">Due Date</th>\n"
+"                        <th style=\"padding: 5px; border: 1px solid black;\">Total</th>\n"
+"                        <th style=\"padding: 5px; border: 1px solid black;\">Reference</th>\n"
+"                    </tr>\n"
+"                    <tr>\n"
+"                        <td style=\"padding: 5px; border: 1px solid black;\">\n"
+"                            <t t-out=\"object.invoice_date or ''\"/>\n"
+"                        </td>\n"
+"                        <td style=\"padding: 5px; border: 1px solid black;\">\n"
+"                            <t t-out=\"object.invoice_date_due or ''\"/>\n"
+"                        </td>\n"
+"                        <td style=\"padding: 5px; border: 1px solid black;\">\n"
+"                            <t t-out=\"object.amount_total or ''\"/>\n"
+"                            <t t-out=\"object.currency_id.name or ''\"/>\n"
+"                        </td>\n"
+"                        <td style=\"padding: 5px; border: 1px solid black;\">\n"
+"                            <t t-out=\"object.ref or ''\"/>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </table>\n"
+"\n"
+"                <p>\n"
+"                    <a t-attf-href=\"/odoo/action-account.action_move_in_invoice_type/{{object.id}}\" style=\"background-color:#875A7B; padding:8px 16px; text-decoration:none; color:#fff; border-radius:5px;\">Open the vendor bill</a>\n"
+"                </p>\n"
+"\n"
+"                <p>Regards,</p>\n"
+"                <t t-if=\"user.signature\">\n"
+"                    <p>\n"
+"                        <t t-out=\"user.signature or ''\"/>\n"
+"                    </p>\n"
+"                </t>\n"
+"            </div>\n"
+"        "
+msgstr ""
+
+#. module: account_payment_validation
+#: model_terms:ir.ui.view,arch_db:account_payment_validation.view_move_form_payment_validation
+msgid "Approve Payment (Level 1)"
+msgstr ""
+
+#. module: account_payment_validation
+#: model_terms:ir.ui.view,arch_db:account_payment_validation.view_move_form_payment_validation
+msgid "Approve Payment (Level 2)"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model.fields.selection,name:account_payment_validation.selection__account_move__payment_validation_step__validated
+msgid "Approved for Payment"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model,name:account_payment_validation.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model.fields,field_description:account_payment_validation.field_res_partner__payment_validation_level1_user_id
+#: model:ir.model.fields,field_description:account_payment_validation.field_res_users__payment_validation_level1_user_id
+msgid "Default Level 1 Approver"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model.fields,field_description:account_payment_validation.field_res_partner__payment_validation_level2_user_id
+#: model:ir.model.fields,field_description:account_payment_validation.field_res_users__payment_validation_level2_user_id
+msgid "Default Level 2 Approver"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model,name:account_payment_validation.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model,name:account_payment_validation.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model.fields,field_description:account_payment_validation.field_account_bank_statement_line__payment_validation_level1_user_id
+#: model:ir.model.fields,field_description:account_payment_validation.field_account_move__payment_validation_level1_user_id
+msgid "Level 1 Approver"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model.fields,help:account_payment_validation.field_res_partner__payment_validation_level1_user_id
+#: model:ir.model.fields,help:account_payment_validation.field_res_users__payment_validation_level1_user_id
+msgid ""
+"Level 1 approver set by default on the vendor bills of this partner. It can "
+"be changed on each bill."
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model.fields,field_description:account_payment_validation.field_account_bank_statement_line__payment_validation_level2_user_id
+#: model:ir.model.fields,field_description:account_payment_validation.field_account_move__payment_validation_level2_user_id
+msgid "Level 2 Approver"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model.fields,help:account_payment_validation.field_res_partner__payment_validation_level2_user_id
+#: model:ir.model.fields,help:account_payment_validation.field_res_users__payment_validation_level2_user_id
+msgid ""
+"Level 2 approver set by default on the vendor bills of this partner. It can "
+"be changed on each bill."
+msgstr ""
+
+#. module: account_payment_validation
+#. odoo-python
+#: code:addons/account_payment_validation/models/account_move.py:0
+msgid "No approver is set for the step '%(step)s' of %(move)s."
+msgstr ""
+
+#. module: account_payment_validation
+#. odoo-python
+#: code:addons/account_payment_validation/models/account_move.py:0
+msgid "Only the users of the group '%(group)s' can approve the payment."
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model.fields,field_description:account_payment_validation.field_account_bank_statement_line__payment_validation_step
+#: model:ir.model.fields,field_description:account_payment_validation.field_account_move__payment_validation_step
+#: model:ir.model.fields,field_description:account_payment_validation.field_account_move_line__payment_validation_step
+#: model_terms:ir.ui.view,arch_db:account_payment_validation.view_move_form_payment_validation
+#: model_terms:ir.ui.view,arch_db:account_payment_validation.view_partner_form_payment_validation
+msgid "Payment Approval"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:res.groups,name:account_payment_validation.group_payment_validation_level1
+msgid "Payment Approval: Level 1 Approvers"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:mail.template,name:account_payment_validation.payment_validation_level1_mail_template
+msgid "Payment Approval: Level 1 Request"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:res.groups,name:account_payment_validation.group_payment_validation_level2
+msgid "Payment Approval: Level 2 Approvers"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:mail.template,name:account_payment_validation.payment_validation_level2_mail_template
+msgid "Payment Approval: Level 2 Request"
+msgstr ""
+
+#. module: account_payment_validation
+#. odoo-python
+#: code:addons/account_payment_validation/models/account_move.py:0
+msgid "Payment approval request (%(step)s) sent by e-mail to %(user)s."
+msgstr ""
+
+#. module: account_payment_validation
+#: model_terms:ir.ui.view,arch_db:account_payment_validation.view_move_form_payment_validation
+msgid "Re-send Approval Request"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model.fields,field_description:account_payment_validation.field_account_bank_statement_line__status_in_payment
+#: model:ir.model.fields,field_description:account_payment_validation.field_account_move__status_in_payment
+msgid "Status In Payment"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model.fields,help:account_payment_validation.field_account_bank_statement_line__payment_validation_step
+#: model:ir.model.fields,help:account_payment_validation.field_account_move__payment_validation_step
+#: model:ir.model.fields,help:account_payment_validation.field_account_move_line__payment_validation_step
+msgid ""
+"Step of the approval of the payment of this document by the approvers. It "
+"starts when the vendor bill is validated (posted)."
+msgstr ""
+
+#. module: account_payment_validation
+#. odoo-python
+#: code:addons/account_payment_validation/models/account_move.py:0
+msgid "The level 2 approver must be set on %s before validating the bill."
+msgstr ""
+
+#. module: account_payment_validation
+#. odoo-python
+#: code:addons/account_payment_validation/models/account_move.py:0
+msgid "There is no payment approval request to send for %s."
+msgstr ""
+
+#. module: account_payment_validation
+#. odoo-python
+#: code:addons/account_payment_validation/models/account_move.py:0
+msgid "There is no pending payment approval request on %s."
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model.fields,help:account_payment_validation.field_account_bank_statement_line__payment_validation_level1_user_id
+#: model:ir.model.fields,help:account_payment_validation.field_account_move__payment_validation_level1_user_id
+msgid ""
+"User of the group 'Payment Approval: Level 1 Approvers' who must approve the"
+" payment of this document (first step). This step is optional: when no level"
+" 1 approver is set, the payment approval is directly requested to the level "
+"2 approver. It is defaulted from the partner of the document and can be "
+"changed here."
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model.fields,help:account_payment_validation.field_account_bank_statement_line__payment_validation_level2_user_id
+#: model:ir.model.fields,help:account_payment_validation.field_account_move__payment_validation_level2_user_id
+msgid ""
+"User of the group 'Payment Approval: Level 2 Approvers' who must approve the"
+" payment of this document (second step). It is mandatory to approve the "
+"payment of a vendor bill. It is defaulted from the partner of the document "
+"and can be changed here."
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model.fields.selection,name:account_payment_validation.selection__account_move__payment_validation_step__to_validate_level1
+msgid "Waiting Approval (Level 1)"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model.fields.selection,name:account_payment_validation.selection__account_move__payment_validation_step__to_validate_level2
+msgid "Waiting Approval (Level 2)"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model.fields.selection,name:account_payment_validation.selection__account_move__status_in_payment__to_validate_level1
+msgid "Waiting Payment Approval (Level 1)"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:ir.model.fields.selection,name:account_payment_validation.selection__account_move__status_in_payment__to_validate_level2
+msgid "Waiting Payment Approval (Level 2)"
+msgstr ""
+
+#. module: account_payment_validation
+#. odoo-python
+#: code:addons/account_payment_validation/models/account_move.py:0
+msgid "level 1 approvers"
+msgstr ""
+
+#. module: account_payment_validation
+#. odoo-python
+#: code:addons/account_payment_validation/models/account_move.py:0
+msgid "level 2 approvers"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:mail.template,subject:account_payment_validation.payment_validation_level1_mail_template
+msgid ""
+"{{object.company_id.name}} - Vendor bill {{object.name}} to approve for "
+"payment (level 1)"
+msgstr ""
+
+#. module: account_payment_validation
+#: model:mail.template,subject:account_payment_validation.payment_validation_level2_mail_template
+msgid ""
+"{{object.company_id.name}} - Vendor bill {{object.name}} to approve for "
+"payment (level 2)"
+msgstr ""

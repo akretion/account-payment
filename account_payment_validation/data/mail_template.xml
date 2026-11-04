@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2026 Akretion (https://www.akretion.com).
+  @author Benoît Guillot <benoit.guillot@akretion.com>
+  License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo noupdate="1">
+    <!-- Set here the recipients (Partner To) of the request: it defaults to
+         the level 1 approver of the vendor bill. The e-mail is queued, it is
+         sent by the 'Mail: Email Queue Manager' scheduled action. -->
+    <record id="payment_validation_level1_mail_template" model="mail.template">
+        <field name="name">Payment Approval: Level 1 Request</field>
+        <field name="model_id" ref="account.model_account_move" />
+        <field name="auto_delete" eval="True" />
+        <field name="lang">{{object.payment_validation_level1_user_id.lang}}</field>
+        <field
+            name="email_from"
+        >{{(user.email_formatted or object.company_id.email_formatted)}}</field>
+        <field
+            name="partner_to"
+        >{{object.payment_validation_level1_user_id.partner_id.id}}</field>
+        <field
+            name="subject"
+        >{{object.company_id.name}} - Vendor bill {{object.name}} to approve for payment (level 1)</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px; font-size: 13px;">
+                <p>Hello <t
+                    t-out="object.payment_validation_level1_user_id.name"
+                />,</p>
+                <p>The vendor bill <b t-out="object.name" /> (<t
+                    t-out="object.partner_id.display_name"
+                />) is waiting for your approval to be paid.</p>
+
+                <table
+                    style="border-spacing: 0; border-collapse: collapse; width: 100%; text-align: center; margin-bottom: 16px;"
+                >
+                    <tr>
+                        <th
+                            style="padding: 5px; border: 1px solid black;"
+                        >Bill Date</th>
+                        <th style="padding: 5px; border: 1px solid black;">Due Date</th>
+                        <th style="padding: 5px; border: 1px solid black;">Total</th>
+                        <th
+                            style="padding: 5px; border: 1px solid black;"
+                        >Reference</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 5px; border: 1px solid black;">
+                            <t t-out="object.invoice_date or ''" />
+                        </td>
+                        <td style="padding: 5px; border: 1px solid black;">
+                            <t t-out="object.invoice_date_due or ''" />
+                        </td>
+                        <td style="padding: 5px; border: 1px solid black;">
+                            <t t-out="object.amount_total or ''" />
+                            <t t-out="object.currency_id.name or ''" />
+                        </td>
+                        <td style="padding: 5px; border: 1px solid black;">
+                            <t t-out="object.ref or ''" />
+                        </td>
+                    </tr>
+                </table>
+
+                <p>
+                    <a
+                        t-attf-href="/odoo/action-account.action_move_in_invoice_type/{{object.id}}"
+                        style="background-color:#875A7B; padding:8px 16px; text-decoration:none; color:#fff; border-radius:5px;"
+                    >Open the vendor bill</a>
+                </p>
+
+                <p>Regards,</p>
+                <t t-if="user.signature">
+                    <p>
+                        <t t-out="user.signature or ''" />
+                    </p>
+                </t>
+            </div>
+        </field>
+    </record>
+
+    <!-- Set here the recipients (Partner To) of the request: it defaults to
+         the level 2 approver of the vendor bill. -->
+    <record id="payment_validation_level2_mail_template" model="mail.template">
+        <field name="name">Payment Approval: Level 2 Request</field>
+        <field name="model_id" ref="account.model_account_move" />
+        <field name="auto_delete" eval="True" />
+        <field name="lang">{{object.payment_validation_level2_user_id.lang}}</field>
+        <field
+            name="email_from"
+        >{{(user.email_formatted or object.company_id.email_formatted)}}</field>
+        <field
+            name="partner_to"
+        >{{object.payment_validation_level2_user_id.partner_id.id}}</field>
+        <field
+            name="subject"
+        >{{object.company_id.name}} - Vendor bill {{object.name}} to approve for payment (level 2)</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px; font-size: 13px;">
+                <p>Hello <t
+                    t-out="object.payment_validation_level2_user_id.name"
+                />,</p>
+                <p>The vendor bill <b t-out="object.name" /> (<t
+                    t-out="object.partner_id.display_name"
+                />) is waiting for your approval to be paid.</p>
+
+                <table
+                    style="border-spacing: 0; border-collapse: collapse; width: 100%; text-align: center; margin-bottom: 16px;"
+                >
+                    <tr>
+                        <th
+                            style="padding: 5px; border: 1px solid black;"
+                        >Bill Date</th>
+                        <th style="padding: 5px; border: 1px solid black;">Due Date</th>
+                        <th style="padding: 5px; border: 1px solid black;">Total</th>
+                        <th
+                            style="padding: 5px; border: 1px solid black;"
+                        >Reference</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 5px; border: 1px solid black;">
+                            <t t-out="object.invoice_date or ''" />
+                        </td>
+                        <td style="padding: 5px; border: 1px solid black;">
+                            <t t-out="object.invoice_date_due or ''" />
+                        </td>
+                        <td style="padding: 5px; border: 1px solid black;">
+                            <t t-out="object.amount_total or ''" />
+                            <t t-out="object.currency_id.name or ''" />
+                        </td>
+                        <td style="padding: 5px; border: 1px solid black;">
+                            <t t-out="object.ref or ''" />
+                        </td>
+                    </tr>
+                </table>
+
+                <p>
+                    <a
+                        t-attf-href="/odoo/action-account.action_move_in_invoice_type/{{object.id}}"
+                        style="background-color:#875A7B; padding:8px 16px; text-decoration:none; color:#fff; border-radius:5px;"
+                    >Open the vendor bill</a>
+                </p>
+
+                <p>Regards,</p>
+                <t t-if="user.signature">
+                    <p>
+                        <t t-out="user.signature or ''" />
+                    </p>
+                </t>
+            </div>
+        </field>
+    </record>
+</odoo>
